@@ -5,53 +5,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="container">
-        <table class="table">
-            <!-- Tiêu đề -->
-            <tr>
-                <td style="text-align: center; font-weight: bold; font-size: 25px;">CAESAR CIPHER</td>
-            </tr>
+<div class="container mt-4">
+    <h2 class="text-center">CAESAR CIPHER</h2>
 
-            <!-- Phần mã hóa -->
-            <tr>
-                <td style="font-weight: bold; color: blue;">ENCRYPTION</td>
-            </tr>
-            <tr>
-                <td>
-                    <form method="POST" action="caesar/encrypt">
-                        <div class="mb-3">
-                            <label class="form-label">Plain text:</label>
-                            <input type="text" class="form-control" name="inputPlainText" placeholder="Input Plain Text" required autofocus>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Key:</label>
-                            <input type="number" class="form-control" name="inputKeyPlain" placeholder="Input Key" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Encrypt</button>
-                    </form>
-                </td>
-            </tr>
+    <!-- ENCRYPT FORM -->
+    <h4 class="text-primary mt-4">ENCRYPTION</h4>
+    <form method="POST" action="/encrypt">
+        <div class="form-group">
+            <label>Plain Text:</label>
+            <input type="text" class="form-control" name="inputPlainText" required
+                   value="{{ inputPlainText | default('') }}">
+        </div>
+        <div class="form-group">
+            <label>Key:</label>
+            <input type="number" class="form-control" name="inputKeyPlain" required
+                   value="{{ inputKeyPlain | default('') }}">
+        </div>
+        {% if encrypted_text %}
+        <div class="form-group">
+            <label>Encrypted Text:</label>
+            <input type="text" class="form-control" value="{{ encrypted_text }}" readonly>
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Encrypt</button>
+    </form>
 
-            <!-- Phần giải mã -->
-            <tr>
-                <td style="font-weight: bold; color: blue;">DECRYPTION</td>
-            </tr>
-            <tr>
-                <td>
-                    <form method="POST" action="caesar/decrypt">
-                        <div class="mb-3">
-                            <label class="form-label">Cipher text:</label>
-                            <input type="text" class="form-control" name="inputCipherText" placeholder="Input Cipher Text" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Key:</label>
-                            <input type="number" class="form-control" name="inputKeyCipher" placeholder="Input Key" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Decrypt</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <!-- DECRYPT FORM -->
+    <h4 class="text-primary mt-5">DECRYPTION</h4>
+    <form method="POST" action="/decrypt">
+        <div class="form-group">
+            <label>Cipher Text:</label>
+            <input type="text" class="form-control" name="inputCipherText" required
+                   value="{{ inputCipherText | default('') }}">
+        </div>
+        <div class="form-group">
+            <label>Key:</label>
+            <input type="number" class="form-control" name="inputKeyCipher" required
+                   value="{{ inputKeyCipher | default('') }}">
+        </div>
+        {% if decrypted_text %}
+        <div class="form-group">
+            <label>Decrypted Text:</label>
+            <input type="text" class="form-control" value="{{ decrypted_text }}" readonly>
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Decrypt</button>
+    </form>
+</div>
 </body>
 </html>
